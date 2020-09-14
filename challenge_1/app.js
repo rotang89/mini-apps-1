@@ -21,12 +21,12 @@ var winningBoard = [
 
 var winningLine = [];
 
-const imageX = 'https://www.iconfinder.com/data/icons/letters-and-numbers-1/32/letter_X_blue-512.png'
-const imageO = 'https://images.ctfassets.net/yr4qj72ki4ky/5gltqdfqQSQj1K9DPVMYWf/8e1ca3d632a440be80270f4952a878d0/hrhq-avatar.png'
+const imageX = 'https://ca.slack-edge.com/T019CF39AMN-U0188278ULX-8680e1349f0e-512'
+const imageO = 'https://ca.slack-edge.com/T019CF39AMN-U018G2K23N2-12d21d9ce236-512'
 
 //creates empty board
 function createBoard() {
-  document.getElementById('turn').innerHTML = `TURN: PLAYER ${turn===X ? 'X' : 'O'}`
+  document.getElementById('turn').innerHTML = `TURN: ${turn===X ? 'Michael' : 'Josef'}`
   let board = document.getElementById('gameContainer')
   board.innerHTML = '';
   for (let i=1; i<10; i++) {
@@ -54,7 +54,7 @@ function makeMove() {
     } else {
       turn = turn === X ? O : X
     }
-    document.getElementById('turn').innerHTML = `TURN: PLAYER ${turn===X ? 'X' : 'O'}`
+    document.getElementById('turn').innerHTML = `TURN: ${turn===X ? 'Michael' : 'Josef'}`
   }
 }
 
@@ -78,7 +78,7 @@ function displayWinner() {
   //show winner on bottom of page
   let winnerContainer = document.getElementById('winner');
   let winner = document.createElement('div');
-  winnerContainer.innerHTML = `PLAYER ${turn === X ? 'X WINS' : 'O WINS'}`;
+  winnerContainer.innerHTML = `${turn === X ? 'Michael WINS' : 'Josef WINS'}`;
   winnerContainer.appendChild(winner);
   document.getElementById('display').style.display = 'block';
 }
@@ -89,8 +89,8 @@ function updateScore() {
   scoreX.setAttribute('class', 'score');
   let scoreO = document.createElement('div');
   scoreO.setAttribute('class', 'score');
-  scoreX.innerHTML = `Player X: ${X.score}`;
-  scoreO.innerHTML = `Player O: ${O.score}`;
+  scoreX.innerHTML = `Michael: ${X.score}`;
+  scoreO.innerHTML = `Josef: ${O.score}`;
   document.getElementById('scoreboard').innerHTML = '';
   document.getElementById('scoreboard').append(scoreX);
   document.getElementById('scoreboard').append(scoreO);
