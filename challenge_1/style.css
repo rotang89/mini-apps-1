@@ -7,6 +7,11 @@ body {
   text-align: center;
 }
 
+.title {
+  margin: 20px;
+  font-size: 30px;
+}
+
 #gameContainer {
   width: 650px;
   margin: 50px auto;
@@ -27,4 +32,16 @@ body {
 
 .score {
   font-size: 25px;
+}
+
+#display {
+  display: none;
+}
+
+#winner {
+  font-size: 40px;
+}
+
+button {
+  font-size: 25px
 }

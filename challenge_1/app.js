@@ -1,7 +1,13 @@
 //creates empty board
-var turnX = true;
-var scoreX = 0;
-var scoreO = 0;
+const X = {
+  score: 0,
+  blocks: []
+}
+const O = {
+  score: 0,
+  blocks: []
+}
+var turn = X;
 
 var winningBoard = [
   [1,2,3],
@@ -32,19 +38,64 @@ function createBoard() {
   }
 }
 createBoard()
+updateScore()
 
-//places X or O on clicked block
+//places X or O on clicked block, and checks for winner
 function makeMove() {
   if (!this.style.backgroundImage) {
-    this.style.backgroundImage = (`url(${turnX ? imageX : imageO})`);
-    this.style.backgroundSize = '200px 200px'
-    turnX = !turnX
+    this.style.backgroundImage = (`url(${turn===X ? imageX : imageO})`);
+    this.style.backgroundSize = '200px 200px';
+    let id = Number(this.getAttribute('id'));
+    turn.blocks.push(id)
+    if (checkWinner(turn)) {
+      turn.score++;
+      updateScore();
+      displayWinner();
+    } else {
+      turn = turn === X ? O : X
+    }
   }
 }
 
+//shows winning line, displays winner, button for new game
+function displayWinner() {
+  let winnerContainer = document.getElementById('winner');
+  let winner = document.createElement('div');
+  let newGame = document.createElement('button')
+  winnerContainer.innerHTML = `PLAYER ${turn === X ? 'X WINS' : 'O WINS'}`;
+  winnerContainer.appendChild(winner);
+  document.getElementById('display').style.display = 'block';
+}
 
+//updates score
+function updateScore() {
+  var scoreX = document.createElement('div');
+  scoreX.setAttribute('class', 'score');
+  var scoreO = document.createElement('div');
+  scoreO.setAttribute('class', 'score');
+  scoreX.innerHTML = `Player X: ${X.score}`;
+  scoreO.innerHTML = `Player O: ${O.score}`;
+  document.getElementById('scoreboard').innerHTML = '';
+  document.getElementById('scoreboard').append(scoreX);
+  document.getElementById('scoreboard').append(scoreO);
+}
+
+
+//detects winner
+function checkWinner(player) {
+  console.log(player.blocks)
+  for(let i = 0; i < winningBoard.length; i++) {
+    if (winningBoard[i].every((val) => player.blocks.includes(val))) {
+      return true;
+    }
+  }
+  return false;
+}
 
 function newGame() {
   createBoard();
-  turnX = true;
+  X.blocks = [];
+  O.blocks = [];
+  turn = X;
+  document.getElementById('display').style.display = 'none'
 }
