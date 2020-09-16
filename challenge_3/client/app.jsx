@@ -1,17 +1,16 @@
-class App extends React.Component {
-constructor(props){
-  super(props)
+var info = {}
 
-  this.handleCheckout = this.handleCheckout.bind(this)
-}
+class App extends React.Component {
+
 handleCheckout(event) {
   //go to first form
+  ReactDOM.render(<Form1/>, document.getElementById('app'))
 }
 
   render() {
     return (
       <div>
-        <button onClick={this.handleCheckout}>CHECK OUT</button>
+        <button onClick={this.handleCheckout.bind(this)}>CHECK OUT</button>
       </div>
     )
   }
@@ -25,42 +24,37 @@ class Form1 extends React.Component {
       password: ''
     }
 
-    this.handleName = this.handleName.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleName(event) {
     this.setState({
       name: event.target.value
     })
-    console.log(this.state.name)
   }
 
   handlePassword(event) {
     this.setState({
       password: event.target.value
     })
-    console.log(this.state.password)
   }
 
   handleSubmit(event) {
-    //add state info to database
+    //add state info
     //go to next form
+    info = {...info, ...this.state}
+    ReactDOM.render(<Form2/>, document.getElementById('app'))
   }
 
 
   render() {
     return (
-    <form onSubmit={this.handleSubmit}>
-      <label>
-        Name:
-        <input type='text' value={this.state.name} onChange={this.handleName}></input>
-        Password:
-        <input type='text' value={this.state.password} onChange={this.handlePassword}></input>
-      </label>
-      <input type='submit' value='Submit'></input>
-    </form>
+    <div>
+      Name:
+      <input type='text' value={this.state.name} onChange={this.handleName.bind(this)}></input>
+      Password:
+      <input type='text' value={this.state.password} onChange={this.handlePassword.bind(this)}></input>
+      <button onClick={this.handleSubmit.bind(this)}>NEXT</button>
+    </div>
     )
   }
 }
@@ -76,15 +70,6 @@ class Form2 extends React.Component {
       zipCode: '',
       phoneNumber: ''
     }
-
-    this.handleLine1 = this.handleLine1.bind(this);
-    this.handleLine2 = this.handleLine2.bind(this);
-    this.handleCity = this.handleCity.bind(this);
-    this.handleState = this.handleState.bind(this);
-    this.handleZipCode = this.handleZipCode.bind(this);
-    this.handlePhoneNumber = this.handlePhoneNumber.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-
 
   }
 
@@ -125,34 +110,120 @@ class Form2 extends React.Component {
   }
 
   handleSubmit(event) {
-    //add state info to database
+    //add state info
     //go to next form
+    info = {...info, ...this.state}
+    ReactDOM.render(<Form3/>, document.getElementById('app'))
   }
 
   render() {
     return (
-    <form onSubmit={this.handleSubmit}>
-      <label>
-        <b>Address</b>
-        <div>Line 1</div>
-        <input type='text' value={this.state.line1} onChange={this.handleLine1}></input>
-        <div>Line 2</div>
-        <input type='text' value={this.state.line2} onChange={this.handleLine2}></input>
-        <div>City</div>
-        <input type='text' value={this.state.city} onChange={this.handleCity}></input>
-        <div>State</div>
-        <input type='text' value={this.state.state} onChange={this.handleState}></input>
-        <div>Zip Code</div>
-        <input type='text' value={this.state.zipCode} onChange={this.handleZipCode}></input>
-        <br></br><br></br>
-        <b>Phone Number:</b>
-        <br></br>
-        <input type='text' value={this.state.phoneNumber} onChange={this.handlePhoneNumber}></input>
-      </label>
-      <input type='submit' value='Submit'></input>
-    </form>
+    <div>
+      <b>Address</b>
+      <div>Line 1</div>
+      <input type='text' value={this.state.line1} onChange={this.handleLine1.bind(this)}></input>
+      <div>Line 2</div>
+      <input type='text' value={this.state.line2} onChange={this.handleLine2.bind(this)}></input>
+      <div>City</div>
+      <input type='text' value={this.state.city} onChange={this.handleCity.bind(this)}></input>
+      <div>State</div>
+      <input type='text' value={this.state.state} onChange={this.handleState.bind(this)}></input>
+      <div>Zip Code</div>
+      <input type='text' value={this.state.zipCode} onChange={this.handleZipCode.bind(this)}></input>
+      <br></br><br></br>
+      <b>Phone Number:</b>
+      <br></br>
+      <input type='text' value={this.state.phoneNumber} onChange={this.handlePhoneNumber.bind(this)}></input>
+      <button onClick={this.handleSubmit.bind(this)}>NEXT</button>
+    </div>
     )
   }
 }
 
-ReactDOM.render(<Form2/>, document.getElementById('app'))
+class Form3 extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      creditCardNumber: '',
+      expirationDate: '',
+      CVV: '',
+      billingZipCode: ''
+    }
+  }
+
+  handleCreditCard(event) {
+    this.setState({
+      creditCardNumber: event.target.value
+    })
+  }
+
+  handleExpirationDate(event) {
+    this.setState({
+      expirationDate: event.target.value
+    })
+  }
+
+  handleCVV(event) {
+    this.setState({
+      CVV: event.target.value
+    })
+  }
+
+  handleBillingZipCode(event) {
+    this.setState({
+      billingZipCode: event.target.value
+    })
+  }
+
+  handleSubmit(event) {
+    //add state info
+    //go to confirmation
+    info = {...info, ...this.state}
+    ReactDOM.render(<Summary/>, document.getElementById('app'))
+
+  }
+
+  render() {
+    return (
+    <div>
+      Credit Card #
+      <input type='text' value={this.state.name} onChange={this.handleCreditCard.bind(this)}></input><br></br>
+      Expiration Date
+      <input type='text' value={this.state.password} onChange={this.handleExpirationDate.bind(this)}></input><br></br>
+      CVV
+      <input type='text' value={this.state.password} onChange={this.handleCVV.bind(this)}></input><br></br>
+      Billing Zip Code
+      <input type='text' value={this.state.password} onChange={this.handleBillingZipCode.bind(this)}></input>
+      <button onClick={this.handleSubmit.bind(this)}>NEXT</button>
+    </div>
+    )
+  }
+}
+
+class Summary extends React.Component {
+constructor(props) {
+  super(props);
+}
+
+submit(event) {
+  console.log(info)
+  axios.post('/', info)
+  .then(function (response) {
+    ReactDOM.render(<App/>, document.getElementById('app'))
+  })
+  .catch(function(error) {
+    console.log(error)
+  })
+}
+
+  render() {
+    return (
+      <div>
+        <div>summary</div>
+        <button onClick={this.submit.bind(this)}>Confirm</button>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App/>, document.getElementById('app'))
