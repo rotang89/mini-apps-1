@@ -179,6 +179,7 @@ class Form3 extends React.Component {
     //add state info
     //go to confirmation
     info = {...info, ...this.state}
+    console.log(info)
     ReactDOM.render(<Summary/>, document.getElementById('app'))
 
   }
@@ -219,7 +220,7 @@ submit(event) {
   render() {
     return (
       <div>
-        <div>summary</div>
+        <div>{JSON.stringify(info)}</div>
         <button onClick={this.submit.bind(this)}>Confirm</button>
       </div>
     )
