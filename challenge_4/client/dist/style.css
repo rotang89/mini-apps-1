@@ -1,0 +1,20 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  border: dotted red 1px;
+}
+
+#app {
+  font-size: larger;
+}
+
+.block {
+  width: 100px;
+  height: 100px;
+  border: solid black 3px;
+  display: inline-block;
+}
+
+.game {
+  width: 750px
+}
